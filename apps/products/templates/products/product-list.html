@@ -1,0 +1,32 @@
+{% extends 'base/_base.html' %}
+
+
+{% block title %} Product List {% endblock title %}
+
+
+{% block body %}
+    <div class="form-outline">
+        <form action="{{ request.get_full_path }}" method="GET">
+            <input type="search" name="title" class="form-control" placeholder="Search For Product" aria-label="Search" />
+        </form>
+    </div><br>
+    {% for product in products %}
+
+            <div class="card" style="width: 15rem; display:inline-block;">
+
+                  {% if product.picture %}
+                    <img class="card-img-top" src="{{ product.picture.url }}" alt="Card image cap" width="70px;" height="250px;">
+                  {% endif %}
+
+                  <div class="card-body">
+                      <a href="{% url 'products:product-detail' product.id product.slug %}"> <p class="card-text">{{ product.title }}</p> </a>
+                      <hr>
+                      <p class="card-text">©{{ product.price }} | {% if product.is_available %} &#x2713;{% else %}×{% endif %}
+                      </p>
+                  </div>
+            </div>
+        {% empty %}
+            <h6>Oh, Nothig found in our database...</h6>
+        {% endfor %}
+
+{% endblock body %}

@@ -1,0 +1,25 @@
+{% extends 'base/_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Forum Detail {% endblock title %}
+
+{% block body %}
+
+<div>
+    <h3>{{ forum.title }}</h3>
+    <hr>
+    <small>Created by: <a href="{% url 'accounts:profile' forum.author.id forum.author.token %}">{{ forum.author }}</a>
+    at: {{ forum.date }}</small>
+    <br>
+    <hr>
+    <p>{{ forum.body }}</p>
+    <hr>
+    <h2>Rate this forum</h2>
+      {% include "vote/vote.html" %}
+
+    <hr>
+    {% include "comment/comment.html" %}
+    
+</div>
+
+{% endblock body %}
